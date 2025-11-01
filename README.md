@@ -1,21 +1,34 @@
-# AI-Agricultural-Spoilage-Risk-Prediction
-AI проект по моделированию риска порчи сельскохозяйственной продукции в supply-chain логистике на основе датасета EuroCrop. В проекте построены Gradient Boosting Models и финальная LSTM модель для прогнозирования Spoilage Risk.
+# Моделирование риска порчи в аграрной логистике с помощью AI (EuroCrop)
 
-## Features
-- очистка, нормализация, feature engineering
-- RobustScaling / MinMaxScaling
-- классы риска High / Medium / Low
-- XGBoost / RandomForest baseline models
-- primary модель: LSTM (TensorFlow)
+Проект посвящён построению AI системы прогнозирования Spoilage Risk для сельскохозяйственных поставок на основе табличных данных EuroCrop. В работе проведена реальная индустриальная подготовка данных, построение feature engineering пайплайна и обучение нескольких ML моделей: XGBoost, Random Forest и финальная модель LSTM, работающая с временной динамикой признаков.
+
+## Цель проекта
+Создать модель, способную заранее оценивать уровень риска порчи продукции при аграрной логистике, что имеет прямой бизнес эффект (снижение списаний, оптимизация маршрутов, оптимизация складов, снижение финансовых потерь).
+
+## Что сделано
+
+- проведена обработка данных, очистка, удаление шумовых/бессмысленных признаков
+- построены новые фичи (feature interaction, ratio фичи, категориальные энкодинги)
+- реализован нормализованный и воспроизводимый табличный pipeline (industry стандарт)
+- обучены baseline модели (XGBoost, RandomForest) на регрессию + перевод в risk-категории (High / Medium / Low)
+- построена sequence модель LSTM (как финальный best model) на основе временных зависимостей признаков
+
+## Архитектура эксперимента
+
+| Модель | Тип | Назначение |
+|-------|-----|-------------|
+| XGBoost | gradient boosting baseline | классический ML сильный baseline |
+| RandomForest | ensemble baseline | контроль generalization / variance |
+| LSTM | deep learning time-sequence model | финальная production модель |
 
 ## Dataset
 EuroCrop_agricultural_logistics_dataset.csv
 
-## Results
-LSTM дала наилучшую итоговую метрику по классификации риска порчи (Accuracy / F1 выше baseline GBM моделей).
+## Результаты
+LSTM модель показала лучшую итоговую метрику по Accuracy / F1 относительно всех baseline моделей (XGBoost / RF), демонстрируя лучшую устойчивость в прогнозировании реального Spoilage Risk.
 
-## File
-`main.py` — полный код проекта от загрузки данных до финальной модели + метрики
+## Файл проекта
+`Tabular-DS-Feature-Engineering.ipynb` — полный код проекта (EDA → feature engineering → model training → evaluation)
 
 ## Requirements
 numpy  
